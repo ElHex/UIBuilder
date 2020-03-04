@@ -1,0 +1,1798 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Webflow Builder</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+  <link rel="stylesheet" href="vendor/css/st.action-panel.css">
+  <link rel="stylesheet" href="vendor/css/style.css">
+
+
+</head>
+<body>
+
+<div class="st-actionContainer right-bottom">
+  <div class="st-panel">
+    <div class="st-panel-header"><i class="fas fa-toolbox" aria-hidden="true"></i> <h7>Herramientas</h7></div>
+    <div class="st-panel-contents"> 
+      <p>Put menu or icon links here!</p>
+       <div style="max-height: 220px;overflow-y: scroll;">
+            <ul id="toolbar">
+
+
+            </ul>
+         </div>
+    </div>
+    <div class="grid">
+
+        <a href="#" data-tippy="Guardar webflow" id="confirmSave" data-tippy-arrow="true" data-tippy-placement="bottom" class="gridChild"><i class="far fa-save"></i></a>   
+        <a class="gridChild_static"><i class="fa fa-send" aria-hidden="true"></i></a>
+        <a href="#" data-tippy="Borrar webflow" id="deletewebflow" data-tippy-arrow="true" data-tippy-placement="bottom" class="gridChild"><i class="fas fa-trash-alt"></i></a>  
+        <a data-tooltype="tipology" href="#" data-tippy="Añadir tipologia" data-tippy-arrow="true" data-tippy-placement="bottom" class="gridChild"><i class="fas fa-address-book"></i></a>
+        <a data-tooltype="datatable" data-tippy="Añadir tabla de información" data-tippy-arrow="true" data-tippy-placement="bottom" href="#" class="gridChild"><i class="fa fa-table" aria-hidden="true"></i></a> 
+        <a data-tooltype="debt" href="#" data-tippy="Añadir detalles de deuda" data-tippy-arrow="true" data-tippy-placement="bottom" class="gridChild"><i class="fas fa-file-invoice-dollar"></i></a>  
+        <a data-tooltype="management" href="#" data-tippy="Añadir Gestiones" data-tippy-arrow="true" data-tippy-placement="bottom" class="gridChild"><i class="fas fa-briefcase"></i></a> 
+        <a data-tooltype="telephone" href="#" data-tippy="Añadir detalles de telefono" data-tippy-arrow="true" data-tippy-placement="bottom" class="gridChild"><i class="fas fa-mobile-alt"></i></a>  
+        <a data-tooltype="address" href="#" data-tippy="Añadir detalles de direccion" data-tippy-arrow="true" data-tippy-placement="bottom" class="gridChild"><i class="fas fa-map-marked-alt"></i></a>  
+
+      </div>
+
+      <hr> 
+       <div class="grid">
+    <a data-tooltype="title" href="#" data-tippy="Insertar titulo" id="addTitle" data-tippy-arrow="true" data-tippy-placement="bottom" class="gridChild"><i class="fas fa-pen-nib"></i></a>   
+   </div>
+
+
+
+  </div>
+  <div class="st-btn-container right-bottom">
+    <div class="st-button-main"><i class="fa fa-bars" aria-hidden="true"></i></div>
+  </div>
+</div>
+
+ 
+<div id="playfield" class="playfield" style="height: 3000px;">
+
+
+</div>
+
+<div id="campaingSelector" class="modal" style="overflow: unset!important; max-width: 600px!important;">
+   <div style="padding-bottom: 2%;">
+      <center>
+         <h2>Seleccione la campaña:</h2>
+      </center>
+   </div>
+   <div class="input-group mb-3">
+      <div class="input-group-prepend">
+         <span class="input-group-text" id="inputGroup-sizing-default">Campaña</span>
+      </div>
+      <select id="campaingSelect" class="form-control">
+         <option value='-1' selected>Selecciona una opcion...</option>
+      </select>
+   </div>
+   <div class="input-group mb-3">
+      <div class="input-group-prepend">
+         <span class="input-group-text" id="inputGroup-sizing-default">Webflow</span>
+      </div>
+      <select id="webflowSelector" class="form-control" disabled>
+         <option value='-1' selected>Selecciona una opcion...</option>
+         <option value='new'>Crear nuevo WebFlow</option>
+      </select>
+   </div>
+   <div style="float: right;">
+      <button type="button" id="selectCampaing" class="btn btn-primary">Iniciar</button>
+   </div>
+</div>
+
+
+<div id="webflowModal" class="modal" style="overflow: unset!important;">
+  <div style="padding-bottom: 2%;"><center><h2>Guardar Webflow como</h2></center></div>
+
+<div>
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Nombre del webflow</span>
+  </div>
+  <input type="text" id="webflowname" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+</div>
+
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Descripción del webflow</span>
+  </div>
+  <input type="text" id="webflowdescription" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+</div>
+</div>
+<div style="float: right;">
+<button type="button" id="saveTemplate" class="btn btn-primary">Guardar</button>
+<button type="button" class="btn btn-secondary">Cancelar</button>
+</div>
+
+</div>
+
+
+<div id="tableBuilder" class="tablebuild" data-backdrop="static" data-keyboard="false" data-backdrop="static" style="overflow: unset!important; height: 55%;">
+<div class="container" style="width:100%;max-width: 100%; height: 100%;">
+  <div class="row" style="height: inherit;">
+    <div class="col-sm-2" style="max-width: 20%!important;">
+      <div class="modal-header" style="justify-content: center;">
+    <h5 class="modal-title" id="tblcoltitle">Modal title</h5>
+      </div>
+
+      <div style="max-height: 75%;overflow-y: scroll;">
+           <ul id="colDB" style="list-group">
+
+            </ul>
+         </div>
+
+    </div>
+    <div class="col-sm" style="display: flex; align-items: center; justify-content: center;">
+      <div style="position: absolute;top: 8%;">
+      <div class="modal-header" style="justify-content: center; border-bottom: unset;">
+    <h5 class="modal-title">Asigne columnas a su tabla</h5>
+  </div>
+      </div>
+
+       <div style="width:100%;max-width: 100%;text-align: center;position: absolute!important;">
+       <table id='tableOrg' class='display responsive nowrap' style='width:100%; background-color: #e6e6e6;'>
+       </table>
+     </div>
+
+        <div class="modal-footer" style="position: absolute;top: 80%; right: 1%;">
+        <button type="button" class="btn btn-primary" id="saveDtBuilder">Insertar al template</button>
+        <a class="btn btn-secondary" href="#" rel="modal:close">Cancelar</a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/tippy.js@3/dist/tippy.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+
+
+<script src="vendor/js/st.action-panel.js"></script>
+
+<script src="toolTypesFuncs.js"></script>
+<script src="js/Builder/templateLoad.js"></script>
+
+<script>
+
+
+
+//CONFIGURACION PARA SISTEMA
+
+var deleteiconHTML="<i class='deletecolumn fas fa-trash-alt'></i>"; //debe tener la clase .deletecolumn para asi detectar cuando se da click y se borra.
+var titletag = "h2";
+var tablemaxwidth ="100%;"; //tamaño maximo de la tabla al ser creada (tiene que tener el ; al final y manejarse solamente con % .)
+
+///CONFIG de DATATABLES
+
+var generalMaxLines= 2;
+var gestionMaxLines = 4;
+
+//-------------------------
+
+//VARIABLES QUE NECESITA EL SISTEMA ( NO TOCAR )
+
+
+var id_webflow = "-1";
+
+var nombre_webflow = "";
+var descripcion_wf = "";
+
+var id_campaing = "";
+var id_empresa = "";
+var ntables=0;
+var layoutitems=[];
+
+var estaGuardando = false;
+
+
+function setContainerResizer(event, ui) {
+
+    $($(this)[0]).children('.ui-resizable-handle').mouseover(setContainerSize);
+}
+
+
+
+function resizeStop(event, ui){
+    convert_to_percentage($(this));
+}
+
+function dragStop(event, ui){
+    convert_to_percentage($(this));
+}
+
+
+
+function convert_to_percentage(el){
+    var parent = el.parent();
+    el.css({
+        left:parseInt(el.css('left'))/parent.width()*100+"%",
+        top: parseInt(el.css('top'))/parent.height()*100+"%",
+        width: el.width()/parent.width()*100+"%",
+        height: el.height()/parent.height()*100+"%"
+    });
+}
+
+function setContainerSize(el) {
+    var parent = $(el.target).parent().parent();
+    parent.css('height', parent.height() + "px");
+}
+
+function resetContainerSize(el) {
+    parent.css('height', 'auto');
+}
+
+
+class LayoutItem {
+  constructor(draggableid, localid, layoutype, settings, instance) {
+    this.draggableid = draggableid;
+    this.localid = localid;
+    this.layoutype=layoutype;
+    this.settings=settings;
+    this.instance = instance;
+  }
+}
+
+class SubLayoutItem {
+  constructor(id ,title ,type , width , height , top , left,uitype, settings) {
+    this.id = id;
+    this.title = title;
+    this.type = type;
+    this.width=width;
+    this.height=height;
+    this.top = top;
+    this.left = left;
+    this.uitype = uitype;
+    this.settings = settings; 
+
+  }
+}
+
+class tableBuilder {
+    constructor(parentID, tableID, List) {
+
+      this.parentID = parentID;
+      this.tableID = tableID;
+      this.List = List;
+      this.type = "";
+      this.dtInstance = null;
+      this.objx = "";
+      this.objy= "";
+
+     // this.showModal();
+      this.startEvents(); //Iniciamos los eventos 
+      this.startDTEmpty();
+    }
+
+    startEditor(type,columns_listTitle,objetivex,objetivey){
+       
+        this.objx = objetivex;
+        this.objy= objetivey;
+      this.type=type;   //asignamos el tipo con el que estamos trabajando
+
+      $("#tblcoltitle").text(columns_listTitle); //se le asigna el titulo al h5 de la modal encima de la lista
+
+      this.LoadList(); //se cargan las columnas a la lista
+      $("#colDB").empty();
+
+      this.startDTEmpty();
+      this.showModal(); //se muestra la modal
+
+    }
+
+    startEvents(){
+
+      var object = this;
+
+      $(document).on('click','#saveDtBuilder',function(e) { 
+
+        object.savetoDom();
+
+       });
+
+    }
+
+    savetoDom(){
+
+    let object = this;
+
+    let titles = [];
+
+    let dtinstance = $("#"+object.tableID).DataTable();
+
+    let columns =  dtinstance.columns().header().toArray().map(x => {let obj = {}; obj.title= x.outerHTML; return obj;})
+
+       let lastnindex=0;
+
+      if(layoutitems.length>0){
+          lastnindex= parseInt(layoutitems[layoutitems.length-1].draggableid.match(/\d+/g, ""))+1; 
+      }
+
+
+    //var lastnindex=0;
+
+      $( "#playfield" ).append( ""+ 
+                "<div id='draggable"+lastnindex+"' data-tablrogid='table"+lastnindex+"' class='box' style='z-index: 0; top:"+this.objy+"; left:"+this.objx+";min-width : "+tablemaxwidth+"; width: 100%; padding: 1%; line-height: normal!important;'>"+
+                     "<a class='deleteelement deleteicon close-modal' onclick='deleteElement(this)' data-drag-id='draggable"+lastnindex+"'>Close</a>"+
+                        "<table id='table"+lastnindex+"' class='display' style='width:100%; background-color: #e6e6e6;'>"+
+                        "</table>"+
+
+                "</div>");
+
+
+      $(columns).each(function(){
+
+            var coltitleval= $(this.title).text();
+
+            let columnobj = $.parseHTML( this.title );
+
+            let spanIndx=  columnobj.findIndex(x => x.tagName =="SPAN");
+
+            let originalTitle = $(columnobj[spanIndx]).data("originaltitle");
+
+            if(coltitleval){
+
+            var obj = {}; 
+             obj.title = "<i id='setcoltoleft' data-tablrogid='table"+lastnindex+"' class='fas fa-arrow-circle-left' style='padding-right:2%;'></i><span data-originaltitle='"+originalTitle+"'>"+$(this.title).text()+"</span><i class='fas fa-arrow-circle-right' data-tablrogid='table"+lastnindex+"' id='setcoltoright' style='padding-left:2%;'></i>";
+
+             obj.data=null;
+
+             var deleteiconcustom = $.parseHTML( deleteiconHTML );
+             $(deleteiconcustom).attr('data-tablrogid', 'table'+lastnindex);
+             obj.defaultContent = $( deleteiconcustom )[0].outerHTML ;
+
+             
+
+             titles.push(obj);
+
+            }
+
+
+
+        }); 
+
+      dtinstance.clear().destroy();
+
+          $('#tableOrg').empty();
+
+
+          var dt = $('#table'+lastnindex).DataTable( {
+                  "dom": 'ftpr',
+                  "ordering": false,
+                  "retrieve": true,
+                  "responsive": true,
+                    "columns": titles,
+
+                  } );
+
+
+          let howmanyrows = generalMaxLines;
+
+          if(object.type=="management"){ 
+
+               howmanyrows = gestionMaxLines;
+          }
+
+            for(let i=0;i<howmanyrows;i++){
+
+              dt.row.add( titles ).draw();
+
+            }
+
+            dt.columns.adjust().responsive.recalc();
+
+            let settings = {Colname: ""};
+
+               layoutitems.push(new LayoutItem("draggable"+lastnindex,'table'+lastnindex,object.type,settings , dt));
+
+            $('.box , .subitem')
+            .resizable({containment: 'parent', handles: "se", create: setContainerResizer, stop:resizeStop})
+            .draggable({containment: 'parent', stop:dragStop});
+
+          $.modal.close();
+      
+
+    }
+
+
+    showModal(){
+
+        $('#'+this.parentID).modal({ escapeClose: false, clickClose: false});
+      }
+
+      enableLDragging(){
+                $( ".uibuilderLi" ).draggable({
+                 containment: '#'+this.parentID,
+                  helper: "clone",
+                  cursorAt: { top:30 },
+                    start: function( event, ui ) {
+
+                    var tag = $(ui.helper[0]).find( "h9" );
+
+                    var selectedval = $(tag).text();
+
+                        $(ui.helper[0]).html( "<div class='input-group' style='height:100%!important;'>"+
+                                              "<div class='input-group-prepend'>"+
+                                              "</div>"+
+                                              "<input style='height:auto!important;' type='text' class='form-control'>"+
+                                            "</div>");
+
+                        },
+
+
+                });
+
+      }
+
+      LoadList() {
+
+        if(this.type!=""){
+          let object = this;
+
+        $.ajax({
+            type: "POST",
+            data : {type: this.type},
+            url: "php/getTableInfo.php",
+            success: function(response, status, request) {
+
+               let jsonobject = jQuery.parseJSON(response);
+
+
+                for (var i = 0; i < jsonobject.length; i++) {
+
+            $("#"+object.List).append('<li style="padding: 4%;cursor: -webkit-grab;" data-tooltype="subdtitem" class="uibuilderLi ui-state-default"><i style="margin-right: 8%;" class="fas fa-arrows-alt"></i><h9>'+jsonobject[i].COLUMN_NAME+'</h9></li>');
+
+                }
+
+                object.enableLDragging();
+
+            }
+        });
+
+       }
+    }
+
+    startDTEmpty(){
+
+    var dt = $('#tableOrg').DataTable( {
+            "dom": "ltip",
+            "ordering": false,
+            "retrieve": true,
+            "responsive": true,
+              "columns": [
+                { "title": "<span></span>",className: "" }
+              ],
+             "language": {
+                  "emptyTable": "Mueve un item aqui para asignarlo a esta tabla."
+                },
+
+            } );
+
+    this.dtInstance = dt;
+
+    
+    this.makeDTDroppable();
+
+    }
+
+     addNewColumnDT(colName,tblName){
+
+      let object = this;
+
+        let titles = [];
+
+        let dtinstance = $("#"+tblName).DataTable();
+
+        let columns = dtinstance.columns().header().toArray().map(x => {let obj = {}; obj.title= x.innerHTML; return obj;})
+
+        $(columns).each(function(){
+
+            var coltitleval= $(this.title).text();
+
+            let parsedHTml= $.parseHTML( this.title );
+
+            let spanIdx = parsedHTml.findIndex(x => x.tagName =="SPAN");
+
+             let originaltitle =  $(parsedHTml[spanIdx]).data("originaltitle");
+
+            if(coltitleval){
+
+            var obj = {}; 
+             obj.title = '<i data-tablrogid="tableOrg" onClick="set_toLefttCol(\'tableOrg\' ,\'' + originaltitle + '\')" class="fas fa-arrow-circle-left" style="padding-right:2%;"></i><span contenteditable="true" oncontextmenu="return false;" data-originaltitle="'+originaltitle+'">'+coltitleval+'</span><i class="fas fa-arrow-circle-right" data-tablrogid="tableOrg" onClick="set_toRightCol(\'tableOrg\' ,\'' + originaltitle + '\')"  style="padding-left:2%;"></i>';
+             obj.data=null;
+
+
+
+             var deleteiconcustom = $.parseHTML( deleteiconHTML );
+             deleteiconcustom[0].setAttribute('onClick', 'deleteC_DT(\'tableOrg\' ,\'' + coltitleval + '\')');
+             $(deleteiconcustom).attr('data-tablrogid', "tableOrg");
+             obj.defaultContent = $( deleteiconcustom )[0].outerHTML ;
+
+             titles.push(obj);
+
+            }
+
+        }); 
+
+        var newcolN={}; 
+
+         newcolN.title ='<i data-tablrogid="tableOrg" onClick="set_toLefttCol(\'tableOrg\' ,\'' + colName + '\')" class="fas fa-arrow-circle-left" style="padding-right:2%;"></i><span contenteditable="true" oncontextmenu="return false;" data-originaltitle="'+colName+'">'+colName+'</span><i class="fas fa-arrow-circle-right" data-tablrogid="tableOrg" onClick="set_toRightCol(\'tableOrg\' ,\'' + colName + '\')" style="padding-left:2%;"></i>';
+         newcolN.data=null;
+
+        var deleteiconcustom = $.parseHTML( deleteiconHTML );
+
+        deleteiconcustom[0].setAttribute('onClick', 'deleteC_DT(\'tableOrg\' ,\'' + colName + '\')');
+        $(deleteiconcustom).attr('data-tablrogid', "tableOrg");
+        
+         newcolN.defaultContent = $( deleteiconcustom )[0].outerHTML;
+
+         titles.push(newcolN);
+        
+          dtinstance.clear().destroy();
+
+          $('#tableOrg').empty();
+
+          var dt = $('#tableOrg').DataTable( {
+                  "dom": "ltip",
+                  "ordering": false,
+                  "retrieve": true,
+                  "responsive": true,
+                    "columns": titles,
+
+                  } );
+
+
+         /*/  for(var i=0; i<9; i++){
+               dt.row.add( titles ).draw();
+           }
+      /*/
+
+            dt.row.add( titles ).draw();
+
+            object.dtInstance = dt;
+
+            dt.columns.adjust().responsive.recalc();
+       
+}
+
+  makeDTDroppable(){
+
+      let object = this;
+
+      $('#tableOrg').droppable({
+                  accept: ".uibuilderLi",
+                  classes: {
+                    "ui-droppable-active": "ui-state-active",
+                    "ui-droppable-hover": "ui-state-hover"
+                  },
+                  drop: function( event, ui ) {
+
+                     object.addNewColumnDT(ui.draggable[0].textContent, "tableOrg");
+
+                  }
+
+                });
+
+                this.dtInstance.columns.adjust();
+
+    }
+
+    
+
+}
+
+
+ function deleteC_DT(tableid ,columnName) {
+
+    var Instancedt = $("#"+tableid).DataTable();
+    
+    var columns = Instancedt.columns().header().toArray().map(x => {let obj = {}; obj.title= x.innerHTML; return obj;})
+
+    var deleteiconindex = columns.findIndex(x => $(x.title).text()==columnName);
+
+    var titles = [];
+
+    columns.splice(deleteiconindex, 1);
+
+    $(columns).each(function(){
+
+             let obj = {}; 
+             obj.title = this.title;
+             obj.data=null;
+
+             let deleteiconcustom = $.parseHTML( deleteiconHTML );
+
+             let parsedHTml= $.parseHTML( this.title );
+
+             let spanIndx=  parsedHTml.findIndex(x => x.tagName =="SPAN");
+
+             deleteiconcustom[0].setAttribute('onClick', 'deleteC_DT(\'tableOrg\' ,\'' + parsedHTml[spanIndx].textContent + '\')');
+            $(deleteiconcustom).attr('data-tablrogid', tableid);
+
+             obj.defaultContent = $( deleteiconcustom )[0].outerHTML;
+
+             titles.push(obj);
+
+        }); 
+
+
+    Instancedt.clear().destroy();
+
+  $('#'+tableid).empty();
+
+
+  var dt = null;
+
+  if(titles.length<1){
+
+     dt = $("#"+tableid).DataTable( {
+            "dom": "ltip",
+            "ordering": false,
+            "retrieve": true,
+            "responsive": true,
+              "columns": [
+                { "title": "<span></span>",className: "" }
+              ],
+             "language": {
+                  "emptyTable": "Mueve un item aqui para asignarlo a esta tabla."
+                },
+
+            } );
+     }
+     else{
+
+     dt = $("#"+tableid).DataTable( {
+            "dom": "ltip",
+              "responsive": true,
+              "ordering": false,
+              "columns": titles
+
+               } );
+
+    dt.row.add( titles ).draw();
+        dt.columns.adjust();
+
+    }
+
+}
+
+
+function set_toRightCol(tableid ,columnName){
+
+    var Instancedt = $("#"+tableid).DataTable();
+    
+    var columns = Instancedt.columns().header().toArray().map(x => {let obj = {}; obj.title= x.innerHTML; return obj;})
+
+    var titles = [];
+
+    var colvalueindex = columns.findIndex(x => { let item= $.parseHTML( x.title );     
+                                                 let indexSPAN = item.findIndex(x => x.tagName =="SPAN"); 
+                                                 let span = item[indexSPAN];
+                                                 let originalName = $(span).data("originaltitle");
+                                                 return originalName==columnName; });
+
+    if( columns[colvalueindex+1] ){
+
+        $(columns).each(function(){
+
+             let obj = {}; 
+             obj.title = this.title;
+             obj.data=null;
+
+             let deleteiconcustom = $.parseHTML( deleteiconHTML );
+
+             let parsedHTml= $.parseHTML( this.title );
+
+             let spanIndx=  parsedHTml.findIndex(x => x.tagName =="SPAN");
+
+             deleteiconcustom[0].setAttribute('onClick', 'deleteC_DT(\'tableOrg\' ,\'' + parsedHTml[spanIndx].textContent + '\')');
+            $(deleteiconcustom).attr('data-tablrogid', tableid);
+
+             obj.defaultContent = $( deleteiconcustom )[0].outerHTML;
+
+             titles.push(obj);
+
+        }); 
+
+    var columnToreplace = titles[colvalueindex+1];
+
+    titles[colvalueindex+1] = titles[colvalueindex];
+
+    titles[colvalueindex] = columnToreplace;
+
+    Instancedt.clear().destroy();
+
+  $('#'+tableid).empty();
+
+        var dt = $("#"+tableid).DataTable( {
+          "dom": "ltip",
+            "responsive": true,
+            "ordering": false,
+            "columns": titles
+
+                } );
+
+         dt.row.add( titles ).draw();
+
+        dt.columns.adjust();
+    }
+
+}
+
+function set_toLefttCol(tableid ,columnName){
+
+    var Instancedt = $("#"+tableid).DataTable();
+    
+    var columns = Instancedt.columns().header().toArray().map(x => {let obj = {}; obj.title= x.innerHTML; return obj;})
+
+    var titles = [];
+
+    var colvalueindex = columns.findIndex(x => { let item= $.parseHTML( x.title );     
+                                                 let indexSPAN = item.findIndex(x => x.tagName =="SPAN"); 
+                                                 let span = item[indexSPAN];
+                                                 let originalName = $(span).data("originaltitle");
+                                                 return originalName==columnName; });
+
+    if( columns[colvalueindex-1] ){
+
+        $(columns).each(function(){
+
+             let obj = {}; 
+             obj.title = this.title;
+             obj.data=null;
+
+             let deleteiconcustom = $.parseHTML( deleteiconHTML );
+
+             let parsedHTml= $.parseHTML( this.title );
+
+             let spanIndx=  parsedHTml.findIndex(x => x.tagName =="SPAN");
+
+             deleteiconcustom[0].setAttribute('onClick', 'deleteC_DT(\'tableOrg\' ,\'' + parsedHTml[spanIndx].textContent + '\')');
+            $(deleteiconcustom).attr('data-tablrogid', tableid);
+
+             obj.defaultContent = $( deleteiconcustom )[0].outerHTML;
+
+             titles.push(obj);
+
+        });
+
+    var columnToreplace = titles[colvalueindex-1];
+
+    titles[colvalueindex-1] = titles[colvalueindex];
+
+    titles[colvalueindex] = columnToreplace;
+
+    Instancedt.clear().destroy();
+
+  $('#'+tableid).empty();
+
+
+         var dt = $("#"+tableid).DataTable( {
+          "dom": "ltip",
+            "responsive": true,
+            "ordering": false,
+            "columns": titles
+
+                } );
+
+         dt.row.add( titles ).draw();
+
+        dt.columns.adjust();
+    }
+
+
+
+}
+
+
+
+function set_ListBD(title) { // Para añadir columnas a la terca lista
+
+    $("#toolbar").append('<li style="padding: 4%;cursor: -webkit-grab;" data-tooltype="input" class="ui-state-default"><i style="margin-right: 8%;" class="fas fa-arrows-alt"></i><h9>'+title+'</h9></li>');
+
+}
+
+function enableListDragging(){
+                $( "#toolbar li, .gridChild" ).draggable({
+                 containment: '#playfield',
+                  helper: "clone",
+                  cursorAt: { top:30 },
+                    start: function( event, ui ) {
+
+                    var tag = $(ui.helper[0]).find( "h9" );
+
+                    var selectedval = $(tag).text();
+
+                        $(ui.helper[0]).html( "<div class='input-group' style='height:100%!important;'>"+
+                                              "<div class='input-group-prepend'>"+
+                                                "<span class='input-group-text' id=''>"+selectedval+"</span>"+
+                                              "</div>"+
+                                              "<input style='height:auto!important;' type='text' class='form-control'>"+
+                                            "</div>");
+
+                        },
+
+
+                });
+
+}
+
+
+function getTableNames() {
+    $.ajax({
+        type: "POST",
+        data : {type: "base"},
+        url: "php/getTableInfo.php",
+        success: function(response, status, request) {
+            jsonobject = jQuery.parseJSON(response);
+
+            for (i = 0; i < jsonobject.length; i++) {
+
+                set_ListBD(jsonobject[i].COLUMN_NAME);
+
+            }
+
+            enableListDragging();
+
+
+        }
+    });
+}
+
+function deleteElement(element_dragid){
+
+    var dragid = $( element_dragid).data( "drag-id" );
+    var index = layoutitems.findIndex(x => x.draggableid==dragid);
+
+    $("#"+layoutitems[index].draggableid).remove();
+
+    layoutitems.splice(index, 1);
+
+    console.log(layoutitems);
+
+}
+
+function deleteSubElement(subelement){
+
+    $(subelement).closest( ".subitem" ).remove();
+}
+
+function addPromiseArea(){
+
+    let lastnindex=0;
+
+    if(layoutitems.length>0){
+        lastnindex= parseInt(layoutitems[layoutitems.length-1].draggableid.match(/\d+/g, ""))+1;
+    }
+
+
+          addPromise(lastnindex,"playfield",1,"unset");
+
+            var settings  = {};  
+
+             layoutitems.push(new LayoutItem('draggable'+lastnindex, null, "promise", settings ,$('#draggable'+lastnindex))); 
+
+             lastnindex++;
+
+              $( "#playfield" ).append( ""+ 
+              "<div id='draggable"+lastnindex+"' class='box draggable' style='z-index: 1; top:1.4%; left:16.3104%; width:10%; height:1.7%;'>"+     
+                "<a class='deleteelement deleteicon close-modal' onclick='deleteElement(this)' data-drag-id='draggable"+lastnindex+"'>Close</a>"+   
+                    "<"+titletag+" id='title"+lastnindex+"' contenteditable='true' oncontextmenu='return false;' style='width: fit-content;height: fit-content;'>Promesa</"+titletag+">"+
+              "</div>");
+
+           var settings  = {};  //se incrusta un array de objetos especificando el nombre de las columnas, se pueden poner mas añadidos.
+
+           layoutitems.push(new LayoutItem('draggable'+lastnindex,'title'+lastnindex,"title", settings ,$('#draggable'+lastnindex)));
+
+           lastnindex++;
+
+        $( "#playfield" ).append( ""+ 
+              "<div id='draggable"+lastnindex+"' class='box draggable' style='z-index: 2; top:1.4%; left:74.0301%; width:10%; height:1.7%;'>"+     
+                "<a class='deleteelement deleteicon close-modal' onclick='deleteElement(this)' data-drag-id='draggable"+lastnindex+"'>Close</a>"+   
+                    "<"+titletag+" id='title"+lastnindex+"' contenteditable='true' oncontextmenu='return false;' style='width: fit-content;height: fit-content;'>Llamada</"+titletag+">"+
+              "</div>");
+
+
+           layoutitems.push(new LayoutItem('draggable'+lastnindex,'title'+lastnindex,"title", settings ,$('#draggable'+lastnindex)));
+
+
+
+}
+
+function addCallArea(){
+
+      let lastnindex=0;
+
+    if(layoutitems.length>0){
+        lastnindex= parseInt(layoutitems[layoutitems.length-1].draggableid.match(/\d+/g, ""))+1;
+    }
+
+     var settings  = {};
+              // index,containerID,top,left,width,height
+    addCallTool(lastnindex,"playfield",10.9,67.2209,32.7791,7.03333);
+
+    layoutitems.push(new LayoutItem('draggable'+lastnindex, null, "actioncall", settings ,$('#draggable'+lastnindex))); 
+
+
+}
+
+
+function startUIBuilder(webflowLoaded){
+
+ if(!webflowLoaded){
+
+    addPromiseArea();
+    addCallArea();
+ }
+
+getTableNames();
+
+var tblBuilder = new tableBuilder("tableBuilder", "tableOrg" , "colDB");
+    
+
+$( "#playfield" ).droppable({
+    tolerance: "pointer",
+
+ drop: function( event, ui ) {
+
+    var lastnindex=0;
+
+    if(layoutitems.length>0){
+        lastnindex= parseInt(layoutitems[layoutitems.length-1].draggableid.match(/\d+/g, ""))+1;
+    }
+     
+       
+        if( $(ui.draggable[0]).data("tooltype") == "input"){
+
+          let tag = $(ui.helper[0]).find( "span" );
+
+          let selectedval = $(tag).text();
+
+          let top = (Math.abs((parseInt(ui.offset.top)-40)/$("#playfield").height()*100));
+
+          let left =(Math.abs((parseInt(ui.offset.left)-50)/$("#playfield").width()*100));
+
+          addInput(lastnindex,"playfield", selectedval, top, left);
+
+           var settings  = {Colname: selectedval};  //se incrusta un array de objetos especificando el nombre de las columnas, se pueden poner mas añadidos.
+
+           layoutitems.push(new LayoutItem('draggable'+lastnindex,'span'+lastnindex,"input", settings ,$('#draggable'+lastnindex)));
+
+        }
+        else if( $(ui.draggable[0]).data("tooltype") == "tipology"){ //Condicional cuando se dropea un item de tipo "tipology"
+
+            let top  =(Math.abs((parseInt(ui.offset.top)-40)/$("#playfield").height()*100));
+            let left = 0;
+
+            addTypology(lastnindex,"playfield", top, left );
+
+            var settings  = {};  //Se deja empty para asi, al guardar se recolecta toda la configuracion de los subitems.
+
+            layoutitems.push(new LayoutItem('draggable'+lastnindex, null, "tipology", settings ,$('#draggable'+lastnindex)));  
+
+        }
+        else if ($(ui.draggable[0]).data("tooltype") == "debt") {
+
+          let ycoor = (Math.abs((parseInt(ui.offset.top) - 40) / $("#playfield").height() * 100)).toString() + "%";
+
+          let xcoor = "0%";
+
+          tblBuilder.startEditor("debt", "Columnas de deuda", xcoor, ycoor);
+
+
+      } else if ($(ui.draggable[0]).data("tooltype") == "management") {
+
+          let ycoor = (Math.abs((parseInt(ui.offset.top) - 40) / $("#playfield").height() * 100)).toString() + "%";
+
+          let xcoor = "0%";
+
+          tblBuilder.startEditor("management", "Columnas de Gestion", xcoor, ycoor);
+
+
+      } else if ($(ui.draggable[0]).data("tooltype") == "telephone") {
+
+          let ycoor = (Math.abs((parseInt(ui.offset.top) - 40) / $("#playfield").height() * 100)).toString() + "%";
+
+          let xcoor = "0%";
+
+          tblBuilder.startEditor("telephone", "Columnas de Telefonos", xcoor, ycoor);
+
+
+      } else if ($(ui.draggable[0]).data("tooltype") == "address") {
+
+          let ycoor = (Math.abs((parseInt(ui.offset.top) - 40) / $("#playfield").height() * 100)).toString() + "%";
+
+          let xcoor = "0%";
+
+          tblBuilder.startEditor("address", "Columnas de Dirección ", xcoor, ycoor);
+
+
+      }
+      else if ($(ui.draggable[0]).data("tooltype") == "title") {
+
+          let top = (Math.abs((parseInt(ui.offset.top) - 40) / $("#playfield").height() * 100));
+          let left = (Math.abs((parseInt(ui.offset.left) - 50) / $("#playfield").width() * 100));
+
+
+          addTitle(lastnindex, "playfield", top, left, titletag);
+
+
+          var settings = {}; //se incrusta un array de objetos especificando el nombre de las columnas, se pueden poner mas añadidos.
+
+          layoutitems.push(new LayoutItem('draggable' + lastnindex, 'title' + lastnindex, "title", settings, $('#draggable' + lastnindex)));
+
+          $('[contenteditable=true]').blur(function() {
+
+              var text = $(this).text();
+
+              if (text == null || text == "") {
+
+                  $(this).text("¡Se necesita un titulo!");
+
+              }
+
+          });
+
+      }
+     $('.box , .subitem')
+     .resizable({containment: 'parent', handles: "se", create: setContainerResizer, stop:resizeStop})
+     .draggable({containment: 'parent', stop:dragStop});
+     tippy('.deleteelement', { content: "Borrar elemento" });
+
+      }
+}); //end of droppable base initialization
+
+
+function emptyDT(layoutindex) {
+
+        layoutitems[layoutindex].instance.destroy(true);
+}
+
+
+
+$(document).on('click','#setcoltoright',function(e) { //evento cuando clickeas en la fecha derecha de la tabla para mover columna
+
+    var span=$(this).siblings("span");
+
+    var colvalue= span.text();
+
+    var layoutindex =  layoutitems.findIndex(x => x.localid==$(this).data("tablrogid")); //conseguimos el index de la tabla en la libreria de items activos
+
+    var columns = layoutitems[layoutindex].instance.settings().init().columns;
+
+    var titles = [];
+
+    var colvalueindex = columns.findIndex(x => $(x.title).text()==colvalue);
+
+    if( columns[colvalueindex+1] ){
+
+        $(columns).each(function(){
+
+            var obj = {}; 
+             obj.title = this.title;
+             obj.data=null;
+
+             var deleteiconcustom = $.parseHTML( deleteiconHTML );
+            $(deleteiconcustom).attr('data-tablrogid', layoutitems[layoutindex].localid);
+             obj.defaultContent = $( deleteiconcustom )[0].outerHTML;
+             titles.push(obj);
+
+        }); 
+
+    var columnToreplace = titles[colvalueindex+1];
+
+    titles[colvalueindex+1] = titles[colvalueindex];
+
+    titles[colvalueindex] = columnToreplace;
+
+    emptyDT (layoutindex);
+
+    $("#"+layoutitems[layoutindex].draggableid ).append( ""+ 
+            "<table id='"+layoutitems[layoutindex].localid+"' class='display' style='width:100%; background-color: #e6e6e6;'>"+
+
+                "</table>");
+
+
+        var dt = $("#"+layoutitems[layoutindex].localid).DataTable( {
+            "responsive": true,
+            "ordering": false,
+            "columns": titles
+
+                } );
+
+    let howmanyrows = generalMaxLines;
+
+        for(let i=0;i<howmanyrows;i++){
+
+          dt.row.add( titles ).draw();
+
+        }
+
+        layoutitems[layoutindex].instance= dt;
+
+        dt.columns.adjust();
+    }
+
+});
+
+$(document).on('click','#setcoltoleft',function(e) { //evento cuando clickeas en la fecha derecha de la tabla para mover columna
+
+  var span=$(this).siblings("span");
+
+    var colvalue= span.text();
+
+    var layoutindex =  layoutitems.findIndex(x => x.localid==$(this).data("tablrogid")); //conseguimos el index de la tabla en la libreria de items activos
+
+    var columns = layoutitems[layoutindex].instance.settings().init().columns;
+
+    var titles = [];
+
+    var colvalueindex = columns.findIndex(x => $(x.title).text()==colvalue);
+
+    if( columns[colvalueindex-1] ){
+
+        $(columns).each(function(){
+
+
+            var obj = {}; 
+             obj.title = this.title;
+             obj.data=null;
+             var deleteiconcustom = $.parseHTML( deleteiconHTML );
+            $(deleteiconcustom).attr('data-tablrogid', layoutitems[layoutindex].localid);
+             obj.defaultContent = $( deleteiconcustom )[0].outerHTML;
+             titles.push(obj);
+
+        }); 
+
+    var columnToreplace = titles[colvalueindex-1];
+
+    titles[colvalueindex-1] = titles[colvalueindex];
+
+    titles[colvalueindex] = columnToreplace;
+
+    emptyDT (layoutindex);
+
+    $("#"+layoutitems[layoutindex].draggableid ).append( ""+ 
+            "<table id='"+layoutitems[layoutindex].localid+"' class='display' style='width:100%; background-color: #e6e6e6;'>"+
+
+                "</table>");
+
+
+        var dt = $("#"+layoutitems[layoutindex].localid).DataTable( {
+            "responsive": true,
+            "ordering": false,
+            "columns": titles
+
+                } );
+
+        let howmanyrows = generalMaxLines;
+
+         for(let i=0;i<howmanyrows;i++){
+
+          dt.row.add( titles ).draw();
+
+        }
+        layoutitems[layoutindex].instance= dt;
+
+        dt.columns.adjust();
+    }
+
+});
+
+
+
+$(document).on('click','.deletecolumn',function(e) {
+
+    var layoutindex =  layoutitems.findIndex(x => x.localid==$(this).data("tablrogid")); //conseguimos el index de la tabla en la libreria de items activos
+
+    var columns = layoutitems[layoutindex].instance.settings().init().columns;
+
+    var deleteiconindex = $(this).index();
+
+    var titles = [];
+
+    columns.splice(deleteiconindex, 1);
+
+    $(columns).each(function(){
+
+
+            var obj = {}; 
+             obj.title = this.title;
+             obj.data=null;
+             var deleteiconcustom = $.parseHTML( deleteiconHTML );
+            $(deleteiconcustom).attr('data-tablrogid', layoutitems[layoutindex].localid);
+             obj.defaultContent = $( deleteiconcustom )[0].outerHTML;
+             titles.push(obj);
+
+        }); 
+
+    emptyDT (layoutindex);
+
+    $("#"+layoutitems[layoutindex].draggableid ).append( ""+ 
+            "<table id='"+layoutitems[layoutindex].localid+"' class='display' style='width:100%; background-color: #e6e6e6;'>"+
+
+                "</table>");
+
+
+        var dt = $("#"+layoutitems[layoutindex].localid).DataTable( {
+            "responsive": true,
+            "ordering": false,
+            "columns": titles
+
+                } );
+
+         let howmanyrows = generalMaxLines;
+
+        for(let i=0;i<howmanyrows;i++){
+
+          dt.row.add( titles ).draw();
+
+        }
+        layoutitems[layoutindex].instance= dt;
+
+        dt.columns.adjust();
+
+
+ 
+
+
+});
+
+
+$('st-actionContainer').launchBtn();
+
+
+$('.box')
+.resizable({containment: 'parent', handles: "se", create: setContainerResizer, stop:resizeStop})
+.draggable({containment: 'parent', stop:dragStop});
+
+ $( "#loadTemplate" ).on( "click", function( event ) {
+
+
+        var parent=$("#playfield");
+
+          event.preventDefault();
+
+            $.ajax({
+                   type: "POST",
+                   url: "php/getTheme.php",
+                   success: function(response, status, request)
+                   {
+
+                    console.log("La response es:  "+ response);
+                    console.log(parent.width());
+
+                    if(response != "" && response !=null){
+
+                        var obj = $.parseJSON(response);
+
+                        var coordinates = $.parseJSON(obj.theme_conf);
+                        console.log(coordinates);
+
+
+                        $( "#draggable" ).css({ left: coordinates[0][1]+"%",
+                                                 top: coordinates[0][0]+"%", });
+
+                    //  $( "#draggable" ).css({ "top": String(coordinates[0][0]),"left": String(coordinates[0][1]) });
+
+
+                    }
+
+                 
+
+                  }
+                 });    
+
+
+        });
+
+
+ $( "#confirmSave" ).on( "click", function( event ) {
+
+    $('#webflowModal').modal(); // se abre la modal para preguntar el nombre y la descripcion del webflow
+    
+ });
+
+ $( "#deletewebflow" ).on( "click", function( event ) {
+
+
+  var r = confirm("¿Esta seguro de querer borrar este webflow?");
+
+    if (r == true) {
+       deleteWebflow();
+    } 
+   
+    
+ });
+
+ 
+
+
+ $( "#saveTemplate" ).on( "click", function( event ) {
+
+
+
+
+if(!estaGuardando){
+
+
+          event.preventDefault();
+
+          var processedList = {promises :[], inputs : [], datatables : [], tipologys : [], debts : [], managements : [], telephones : [], addresses : [], titles : [], actioncalls : [] };
+
+          for(var i=0; i<layoutitems.length; i++){
+
+            var val = new LayoutItem( layoutitems[i].draggableid, layoutitems[i].localid, layoutitems[i].layoutype, layoutitems[i].settings, layoutitems[i].instance); // copiamos el objeto original y modificamos abajo.
+                
+            var settings = {};
+
+             if(val.layoutype=="input"){
+
+                 var colvalue = val.instance[0].textContent;
+
+                 let OriginalTitle = $("#"+val.draggableid).find("input").data("originaltitle");
+
+                 settings.Colname = colvalue;
+                 settings.originaltitle=OriginalTitle;
+
+                 val.top = val.instance[0].style.top;
+
+                 val.left = val.instance[0].style.left;
+
+                 val.width = val.instance[0].style.width;
+
+                 val.height = val.instance[0].style.height;
+
+                 val.settings=settings;
+
+                 val.instance=null;
+
+                 processedList.inputs.push(val);
+
+                 }
+                 else if(val.layoutype=="datatable" || val.layoutype=="debt" || val.layoutype=="management" || val.layoutype=="telephone" || val.layoutype=="address" ){
+
+                     var columns = val.instance.columns().header().toArray().map(x => {let obj = {}; obj.title= x.innerHTML; return obj;})
+
+                     var columnsRaw=[];
+
+                      for(a=0;a<columns.length;a++)
+                      {
+
+                      var extractedTitle =  {};
+
+                      extractedTitle.title= $(columns[a].title).siblings("span").text();
+                      extractedTitle.original= $(columns[a].title).siblings("span").data("originaltitle");
+
+                      columnsRaw.push(extractedTitle);
+
+                      }
+
+                     var tabledom = val.instance.table().container();
+
+                     var containertable = $(tabledom).parent();
+
+                     val.top = containertable[0].style.top;
+
+                     val.left = containertable[0].style.left;
+
+                     val.width = containertable[0].style.width;
+
+                     val.height = containertable[0].style.height;
+
+                    settings.Colname=columnsRaw;
+
+                    val.settings=settings;
+
+                    val.instance=null;
+
+
+                    if(val.layoutype=="datatable"){
+                       processedList.datatables.push(val);
+                    }
+                    else if (val.layoutype=="debt"){
+                      processedList.debts.push(val);
+                    }
+                    else if (val.layoutype=="management"){
+                      processedList.managements.push(val);
+                    }
+                    else if (val.layoutype=="telephone"){
+                      processedList.telephones.push(val);
+                    }
+                    else if (val.layoutype=="address"){
+                      processedList.addresses.push(val);
+                    }
+                                                    
+                 }  else if(val.layoutype=="tipology" || val.layoutype=="promise" || val.layoutype=="actioncall" ){ 
+
+
+                 settings = []; //data-subtype='tipologia'
+
+                 val.top = val.instance[0].style.top;
+
+                 val.left = val.instance[0].style.left;
+
+                 val.width = val.instance[0].style.width;
+
+                 val.height = val.instance[0].style.height;
+
+                 val.settings=settings;
+
+                 val.instance=null;
+
+                 let items = [];
+
+                  $("#"+val.draggableid+" .subitem").each(function(){
+                    
+                    let subitem = $(this);
+
+                    let uitype = subitem.data("uitype");
+
+                    var title = subitem.find("span").text();
+
+                    if(uitype=="select"){
+
+                      let select = $(this).find("select");
+
+                      let Options = {};
+
+                      let selectoptions = []; //trabajando
+
+                      if(select[0].options.length>0){
+
+                       $(select[0].options).each(function() {
+
+                            if ($(this).val()!="-1") {
+                              selectoptions.push({optionTitle: this.textContent, optionValue: $(this).val()});
+                            }
+                        });
+
+                      }
+
+                    Options.options=selectoptions;  
+
+                   items.push(new SubLayoutItem(this.id,title , subitem.data("subtype"), this.style.width, this.style.height, this.style.top, this.style.left, uitype, Options ));    
+
+                   }
+                   else if(uitype=="input" || uitype=="textarea" ){
+
+                   
+                    items.push(new SubLayoutItem(this.id,title , subitem.data("subtype"), this.style.width, this.style.height, this.style.top, this.style.left, uitype, null ));
+
+                   }
+                   else if(uitype=="list"){
+
+                      let select = $(this).find(".list-group");
+
+                      let Options = {};
+
+                      let ulitems = []; //trabajando
+
+                      let ulArray = select.find('li');
+
+                      ulArray.each(function(){
+
+                          let li = $(this);
+
+                          ulitems.push({optionTitle: this.textContent, optionValue: $(this).val()});
+
+                        });
+
+                    Options.options=ulitems;  
+
+                   items.push(new SubLayoutItem(this.id,title , subitem.data("subtype"), this.style.width, this.style.height, this.style.top, this.style.left, uitype, Options ));    
+
+
+                   } 
+
+                });
+
+                  val.items = items;
+
+                  if(val.layoutype=="tipology"){
+                    processedList.tipologys.push(val);
+                  }
+                  else if(val.layoutype=="promise"){
+                    processedList.promises.push(val);
+                  }
+                   else if(val.layoutype=="actioncall"){
+                    processedList.actioncalls.push(val);
+                  }
+
+                 }else if(val.layoutype=="title"){ 
+                  //titles //title
+
+                 var colvalue = $(val.instance[0]).find(titletag).text();
+
+                 settings.title = colvalue;
+                 settings.titletype=  titletag;
+
+                 val.top = val.instance[0].style.top;
+
+                 val.left = val.instance[0].style.left;
+
+                 val.width = val.instance[0].style.width;
+
+                 val.height = val.instance[0].style.height;
+
+                 val.settings=settings;
+
+                 val.instance=null;
+
+                 processedList.titles.push(val);
+
+                 }
+                 
+          }
+            console.log(processedList);
+
+       var webflowname= $("#webflowname").val();
+       var webflowdescription= $("#webflowdescription").val();
+       let validado=true;
+
+
+  if(webflowname == "" ){ validado=false; alert("ERROR: El nombre del webflow no puede estar vacio."); }
+  //else if(processedList.tipologys.length <= 0){ validado=false; alert("ERROR: No ha agregado ningun area de tipologia.");}
+
+
+
+    if(validado){
+
+            var processedList_JSON = JSON.stringify(processedList);
+        
+            estaGuardando = true;
+
+            $.ajax({
+                type: "POST",
+                url: "php/SaveWFlow.php",
+                data: {
+                    idwebflow: id_webflow,
+                    idcampaing: id_campaing,
+                    id_empresa : id_empresa,
+                    name: webflowname,
+                    description: webflowdescription,
+                    JSONList: processedList_JSON
+                },
+                success: function(response, status, request) {
+
+                    var processed = jQuery.parseJSON(response);
+
+                    estaGuardando = false;
+
+                    if ($.isNumeric(processed.generatedId)) {
+
+                        id_webflow = processed.generatedId;
+
+                        console.log("La response es:  " + processed.message);
+
+                        alert(processed.message);
+
+                    } else {
+
+                    console.log("La response es:  " + processed.message);
+
+                    alert(processed.message);
+                  }
+
+                }
+            });
+
+         } 
+     }   
+        
+  });
+
+}
+
+    function deleteWebflow(){
+
+            $.ajax({
+                   type: "POST",
+                   url: "php/deleteWFlow.php",
+                   data: {idwebflow: id_webflow},
+                   success: function(response, status, request)
+                   {
+
+                    console.log("La response es:  "+ response);
+
+                    alert(response);
+
+                    location.reload();
+
+                  }
+                 });
+
+    }
+
+
+
+    function getCampaings(){
+
+        $.ajax({
+
+            url : 'campains.json',
+            type : 'GET',
+            data: {id_empresa: id_empresa},
+            dataType:'json',
+            success : function(data) { 
+
+                for(i=0;i<data.length;i++){
+
+                    $('#campaingSelect').append('<option value="'+data[i].id_campain+'">'+data[i].nombre_campain+'</option>');
+
+                }
+            },
+            error : function(request,error)
+            {
+                alert("Request: "+JSON.stringify(request));
+            }
+        });
+
+    }
+
+    function reArragelItems(array){
+
+      array.sort(function (a, b) {
+
+      return parseInt(a.draggableid.match(/\d+/), 10) - parseInt(b.draggableid.match(/\d+/), 10);
+
+    });
+
+    }
+
+
+$(document).on('change', "#campaingSelect", function(){
+
+  let id_cSelected =  $(this).val();
+
+
+  if(id_cSelected!="-1"){
+
+      $("#webflowSelector").empty();
+      $("#webflowSelector").prop('disabled', false);
+      $('#webflowSelector').append('<option value="-1">Cargando...</option>'); 
+
+
+      $.ajax({
+
+               type: "POST",
+               url: "php/getWebflows.php",
+               dataType:'json',
+               data: {idcampaing: id_cSelected},
+                success : function(data) { 
+
+               
+                   if(data){
+                       $("#webflowSelector").empty();
+                      $('#webflowSelector').append('<option value="-1">Seleciona un webflow...</option>'); 
+                      $('#webflowSelector').append('<option value="" style="color:green;">[CREAR NUEVO WEBFLOW]</option>');
+                    
+                    for(i=0;i<data.length;i++){
+
+                        $('#webflowSelector').append('<option data-descripcion="'+data[i].descripcion_webflow+'" value="'+data[i].id_webflow+'">'+data[i].nombre_webflow+'</option>');
+
+                     }
+                   }
+                   else{
+                        $("#webflowSelector").empty();
+                        $('#webflowSelector').append('<option value="-1">No hay webflows creados para esta campaña.</option>');
+                        $('#webflowSelector').append('<option value="" style="color:green;">[CREAR NUEVO WEBFLOW]</option>');
+                         
+                       }
+
+
+                },
+                error : function(request,error)
+                {
+                    alert("Request: "+JSON.stringify(request));
+                }
+            });
+
+      }else {
+        $("#webflowSelector").empty();
+        $("#webflowSelector").prop('disabled', true);
+      }
+});
+
+
+ function startCapaingSelector(){
+
+let searchParams = new URLSearchParams(window.location.search);
+
+if(searchParams.has('idempresa')){
+
+  id_empresa = searchParams.get('idempresa');
+
+    getCampaings();
+
+   $('#campaingSelector').modal(
+    {
+    escapeClose: false,
+    clickClose: false,
+    showClose: false
+    }
+    );
+
+}else{alert("ERROR: ¡No se ha dado un id de empresa!");}
+
+
+}
+
+
+$( "#selectCampaing" ).on( "click", async function( event ) {
+
+   id_webflow = $('#webflowSelector').val();
+   id_campaing = $('#campaingSelect').val();
+
+
+  if(id_webflow==""){
+
+      $.modal.close();
+      startUIBuilder(false);
+
+      }
+      else if(id_webflow!="-1"){
+
+        nombre_webflow =$('#webflowSelector option[value='+id_webflow+']').text();
+        descripcion_wf = $('#webflowSelector option[value='+id_webflow+']').data("descripcion");
+
+        $('#webflowname').val(nombre_webflow);
+        $('#webflowdescription').val(descripcion_wf);
+
+
+        let webflow = await obtenerTemplate(id_webflow,id_campaing); 
+
+        layoutitems = cargarLayoutItems(webflow.estructura);
+
+        reArragelItems(layoutitems); //re organizamos layout items de menor a mayor
+
+        console.log(layoutitems);
+
+         $.modal.close();
+         startUIBuilder(true);
+
+      }
+      else{
+        alert("¡No ha seleccionado una opción valida!");
+      }
+});
+
+
+$( document ).ready(function() {
+
+    startCapaingSelector();
+
+});
+
+
+</script>
+
+
+
+</body>
+</html>
