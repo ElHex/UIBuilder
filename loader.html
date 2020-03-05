@@ -1003,7 +1003,8 @@ function getDatatablesValues(){
                 $.each( item.settings.Colname , function( key, item ) { //creamos los objetos en un array para inicializar las columnas.
 
                     var column = {};
-                    column.data = item.original;
+                   // column.data = item.original;
+                   column.data = item.title;
                     column.title = item.title;
 
                     columns.push(column);
@@ -1047,7 +1048,8 @@ function getDatatablesValues(){
 
                       let ArrayOriginal = $(item.settings.Colname).map(function() { 
                         console.log(this); 
-                        return this.original;  
+                       // return this.original;  
+                       return this.title;  
                       } );
 
                        d.type = currentType;   
